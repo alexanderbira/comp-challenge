@@ -1,0 +1,122 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+nav {
+  /* width: calc(100vw - 40px); */
+  background: #0066be;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100vw - 40px);
+}
+
+nav img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+nav > a {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: fit-content;
+}
+
+nav a {
+  outline: none;
+  position: relative;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+nav a span {
+  position: relative;
+}
+
+nav a span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom center;
+  transition: transform 0.1s linear;
+  transform: scaleX(0);
+}
+
+nav a:hover span::after {
+  transform: scaleX(1);
+  transform-origin: bottom center;
+}
+
+nav > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px 0 10px 0;
+}
+
+nav > div > a {
+  margin: 0 10px 0 10px;
+  text-align: center;
+}
+
+nav > div > a:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 800px) {
+  nav {
+    flex-direction: column;
+  }
+
+  nav > div {
+    width: 100%;
+    justify-content: space-between;
+    border-top: solid rgba(255, 255, 255, 0.328) 1px;
+    padding-top: 10px;
+  }
+
+  nav > div > a:last-child {
+    margin-right: 10px;
+  }
+
+  nav > a {
+    padding-bottom: 0;
+  }
+
+  /* hide the media share buttons */
+  nav > div > div {
+    display: none !important;
+  }
+}
+
+
+.modebar-group:last-child {
+  display: none !important;
+}
+
+.modebar-group {
+  transform: translateX(-200px);
+}
