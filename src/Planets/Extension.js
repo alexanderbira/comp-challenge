@@ -147,8 +147,8 @@ export default function Extension() {
       <h1>Extension - Planets</h1>
       <p>
         I thought it might be interesting to apply the methods I learned in the
-        tasks to different planets. I only included mars and venus as they are
-        the only non-earth rocky planets with a somewhat stable surface
+        tasks to different planets. I only included Mars and Venus as they are
+        the only non-Earth rocky planets with a somewhat stable surface
         temperature.
       </p>
       <p>
