@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/168.78be5917.chunk.css","mappings":"AAAA,KACE,qBACF,CAEA,GACE,gBAAiB,CACjB,iBACF,CAEA,IACE,UACF","sources":["Extension/Extension.module.css"],"sourcesContent":["main {\n  width: min(90vw, 600px);\n}\n\nh1 {\n  font-size: 2.5rem;\n  text-align: center;\n}\n\nsvg {\n  width: 100%;\n}\n"],"names":[],"sourceRoot":""}
