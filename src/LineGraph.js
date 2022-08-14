@@ -23,11 +23,20 @@ colours:
 }
 */
 export default function LineGraph(props) {
-  const { data, margin, w, h, title, xLabel, yLabel, colours } = props;
+  const { margin, w, h, title, xLabel, yLabel } = props;
+  let data = props.data;
+  let colours = props.colours;
   const animated = props.animated ?? true;
+  const legend = props.legend ?? true;
+
+  if (!legend) {
+    data = { default: data };
+    colours = { default: "black" };
+  }
+
   const parentElement = React.useRef(null);
 
-  const [ xName, yName ] = Object.keys(data[Object.keys(data)[0]][0]);
+  const [xName, yName] = Object.keys(data[Object.keys(data)[0]][0]);
 
   React.useEffect(() => {
     parentElement.current.innerHTML = "";
@@ -82,73 +91,46 @@ export default function LineGraph(props) {
       .style("opacity", "0.15")
       .call(d3.axisLeft(y).tickSize(-width).tickFormat(""));
 
-    const group = svg.append("g");
+    if (legend) {
+      const group = svg.append("g");
 
-    const numClasses = Object.keys(data).length;
-    const xScale2 = d3
-      .scaleLinear()
-      .domain([0, numClasses - 1])
-      .range([0, (numClasses - 1) * 40]);
+      const numClasses = Object.keys(data).length;
+      const xScale2 = d3
+        .scaleLinear()
+        .domain([0, numClasses - 1])
+        .range([0, (numClasses - 1) * 40]);
 
-    const xAxis2 = d3
-      .axisLeft(xScale2)
-      .ticks(numClasses)
-      .tickFormat((d) => Object.keys(colours)[d]);
+      const xAxis2 = d3
+        .axisLeft(xScale2)
+        .ticks(numClasses)
+        .tickFormat((d) => Object.keys(colours)[d]);
 
-    group
-      .selectAll("rect")
-      .data([...Array(numClasses).keys()])
-      .enter()
-      .append("rect")
-      .attr("class", "legend-item")
-      .style("fill", (d) => Object.values(colours)[d])
-      .attr("width", 30)
-      .attr("height", 30)
-      .attr("y", (d, i) => i * 40 + 10)
-      .attr("x", width + margin.right - 30);
+      group
+        .selectAll("rect")
+        .data([...Array(numClasses).keys()])
+        .enter()
+        .append("rect")
+        .attr("class", "legend-item")
+        .style("fill", (d) => Object.values(colours)[d])
+        .attr("width", 30)
+        .attr("height", 30)
+        .attr("y", (d, i) => i * 40 + 10)
+        .attr("x", width + margin.right - 30);
 
-    group
-      .append("g")
-      .call(xAxis2)
-      .attr("transform", `translate(${width + margin.right - 30}, 25)`);
+      group
+        .append("g")
+        .call(xAxis2)
+        .attr("transform", `translate(${width + margin.right - 30}, 25)`);
 
-    group._groups[0][0].lastChild.firstChild.style.opacity = "0";
+      group._groups[0][0].lastChild.firstChild.style.opacity = "0";
+    }
 
     const lineGenerator = d3
       .line()
       .x((d) => x(d[xName]))
       .y((d) => y(d[yName]));
-    
 
     if (animated) {
-    Object.keys(colours).forEach((key) => {
-      svg
-        .append("path")
-        .attr("class", "line")
-        .datum(data[key])
-        .style("stroke", colours[key])
-        .attr("stroke-width", 3)
-        .style("fill", "none")
-        .attr(
-          "d",
-          d3
-            .line()
-            .x((d) => 0)
-            .y((d) => height)
-        );
-    });
-
-    // Animation
-    svg
-      .selectAll(".line")
-      .transition()
-      .duration(800)
-      .delay(function (d, i) {
-        return i * 100;
-      })
-      .attr("d", lineGenerator);
-    
-    } else {
       Object.keys(colours).forEach((key) => {
         svg
           .append("path")
@@ -159,9 +141,33 @@ export default function LineGraph(props) {
           .style("fill", "none")
           .attr(
             "d",
-            lineGenerator
+            d3
+              .line()
+              .x((d) => 0)
+              .y((d) => height)
           );
-          });
+      });
+
+      // Animation
+      svg
+        .selectAll(".line")
+        .transition()
+        .duration(800)
+        .delay(function (d, i) {
+          return i * 100;
+        })
+        .attr("d", lineGenerator);
+    } else {
+      Object.keys(colours).forEach((key) => {
+        svg
+          .append("path")
+          .attr("class", "line")
+          .datum(data[key])
+          .style("stroke", colours[key])
+          .attr("stroke-width", 3)
+          .style("fill", "none")
+          .attr("d", lineGenerator);
+      });
     }
 
     // Title
@@ -195,7 +201,20 @@ export default function LineGraph(props) {
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text(yLabel);
-  }, [data, margin, w, h, title, xLabel, yLabel, colours, xName, yName]);
+  }, [
+    data,
+    margin,
+    w,
+    h,
+    title,
+    xLabel,
+    yLabel,
+    colours,
+    xName,
+    yName,
+    animated,
+    legend,
+  ]);
 
   return <div ref={parentElement}></div>;
 }

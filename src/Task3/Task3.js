@@ -120,7 +120,8 @@ export default function Task3() {
         absolute zero.
       </p>
       <p>
-        Use the slider at the bottom of the page to vary the relative humidity (U) and view its effects on the calculated variables in real-time.
+        Use the slider at the bottom of the page to vary the relative humidity
+        (U) and view its effects on the calculated variables in real-time.
       </p>
       <LineGraph
         data={pressureData}

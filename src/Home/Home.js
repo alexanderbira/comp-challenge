@@ -21,27 +21,33 @@ export default function Home() {
         resources and is installable on certain browsers and devices.
       </p>
       <p>
-        The graphs for the three tasks are generated using the{" "}
+        The graphs for the three main tasks and planets extension task are
+        generated using the{" "}
         <a href="https://d3js.org/" target="_blank" rel="noreferrer">
           D3 library
         </a>
-        , embedded in a custom React component. The extension task uses{" "}
+        , embedded in a custom React component. The 3D extension task uses{" "}
         <a
           href="https://plotly.com/javascript/"
           target="_blank"
           rel="noreferrer"
         >
           Plotly JS
-        </a>
+        </a>.
       </p>
       <p>
-        The (messy) source code for this website is available on Github at <a href="https://github.com/alexanderbira/Comp-Challenge" target="_blank" rel="noreferrer">https://github.com/alexanderbira/Comp-Challenge</a>
+        The (messy) source code for this website is available on Github at{" "}
+        <a
+          href="https://github.com/alexanderbira/comp-challenge"
+          target="_blank"
+          rel="noreferrer"
+        >
+          https://github.com/alexanderbira/comp-challenge.
+        </a>
       </p>
 
       <h2>Privacy</h2>
-      <p>
-        This website does not collect any data.
-      </p>
+      <p>This website does not collect any data.</p>
     </main>
   );
 }

@@ -1,0 +1,38 @@
+main {
+  width: min(90vw, 600px);
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+svg {
+  width: 100%;
+}
+
+.custom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #c9f3ff 0%, #cec6f9 100%);
+  border-radius: 5px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.custom input {
+  outline: purple;
+}
+
+.table {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.planetSelect {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -13,7 +13,7 @@
 }
 
 .appLogo {
-  animation: App-logo-pulse infinite .5s ease-in-out;
+  animation: App-logo-pulse infinite 0.5s ease-in-out;
   height: 150px;
   width: 150px;
   padding: 30px;
@@ -28,7 +28,6 @@
   align-items: center;
   height: 500px;
 }
-
 
 body {
   font-display: swap;

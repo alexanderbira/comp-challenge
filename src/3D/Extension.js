@@ -5,16 +5,16 @@ import * as d3 from "d3";
 
 import extensionStyles from "./Extension.module.css";
 
+const axesLabels = {
+  P: "Pressure (hPa)",
+  T: "Temperature (C)",
+  L: "Lapse rate (ºK/m)",
+  Tboil: "Boiling Point (ºC)",
+  Tdew: "Dew Point (ºC)",
+};
+
 export default function Extension() {
   const [varToPlot, setVarToPlot] = React.useState("P");
-
-  const axesLabels = {
-    P: "Pressure (hPa)",
-    T: "Temperature (C)",
-    L: "Lapse rate (ºK/m)",
-    Tboil: "Boiling Point (ºC)",
-    Tdew: "Dew Point (ºC)",
-  };
 
   const T0 = 15;
   const Tstar = 100;
@@ -32,10 +32,8 @@ export default function Extension() {
   const b = 243.04;
   const deltaH = 45.07 * 1000;
 
-  let zData = [];
-
   React.useEffect(() => {
-    zData = [];
+    const zData = [];
 
     for (let U = 0; U <= 1; U += 0.01) {
       //T by default in celsius
@@ -94,9 +92,7 @@ export default function Extension() {
       }
       zData.push(pressures);
     }
-  }, [varToPlot]);
 
-  React.useEffect(() => {
     const x = Array(zData.length)
       .fill(0)
       .map((_, i) => i * 0.01);
@@ -109,9 +105,11 @@ export default function Extension() {
     var text = x.map((xi, i) =>
       y.map(
         (yi, j) =>
-          `Relative Humidity: ${d3.format(".2f")(xi)}<br>Altitude (m): ${yi}<br>${
-            axesLabels[varToPlot]
-          }: ${d3.format(".4f")(zData[i][j])}`
+          `Relative Humidity: ${d3.format(".2f")(
+            xi
+          )}<br>Altitude (m): ${yi}<br>${axesLabels[varToPlot]}: ${d3.format(
+            ".4f"
+          )(zData[i][j])}`
       )
     );
 
@@ -133,8 +131,8 @@ export default function Extension() {
         size: 9,
       },
       autosize: true,
-      width: 400,
-      height: 400,
+      width: Math.min(700, window.innerWidth) - 100,
+      height: Math.min(700, window.innerWidth) - 100,
       margin: {
         l: 0,
         r: 0,
@@ -167,7 +165,7 @@ export default function Extension() {
       },
     };
     Plotly.newPlot("myDiv", data, layout);
-  }, [varToPlot]);
+  }, [varToPlot, Pstar, deltaH]);
 
   return (
     <main>
@@ -175,7 +173,7 @@ export default function Extension() {
       <p>
         As the different variables being calculated in task 3 (pressure,
         temperature...) are affected by both relative humidity and altitude, I
-        thought a 3d surface would be a nice way visualisation.
+        thought a 3d surface would be a nice visualisation.
       </p>
       <p>
         The graph is interactive - you can rotate it by dragging with the cursor
@@ -183,18 +181,20 @@ export default function Extension() {
         with the dropdown menu below.
       </p>
 
-      <select
-        value={varToPlot}
-        onChangeCapture={(e) => setVarToPlot(e.target.value)}
-      >
-        <option value="P">Pressure</option>
-        <option value="T">Temperature</option>
-        <option value="L">Lapse Rate</option>
-        <option value="Tboil">Boiling Point</option>
-        <option value="Tdew">Dew Point</option>
-      </select>
+      <div className={extensionStyles.dropdown}>
+        <select
+          value={varToPlot}
+          onChangeCapture={(e) => setVarToPlot(e.target.value)}
+        >
+          <option value="P">Pressure</option>
+          <option value="T">Temperature</option>
+          <option value="L">Lapse Rate</option>
+          <option value="Tboil">Boiling Point</option>
+          <option value="Tdew">Dew Point</option>
+        </select>
+      </div>
 
-      <div id="myDiv" style={{marginBottom: "3rem"}}></div>
+      <div id="myDiv" style={{ marginBottom: "3rem" }}></div>
     </main>
   );
 }

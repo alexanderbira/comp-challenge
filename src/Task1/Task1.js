@@ -63,7 +63,9 @@ export default function Task1() {
         yLabel={"Temperature (°C)"}
       />
       <table className={task1Styles.tg}>
-        <caption><h2>Layers in the ISA Standard Atmosphere 1976</h2></caption>
+        <caption>
+          <h2>Layers in the ISA Standard Atmosphere 1976</h2>
+        </caption>
         <thead>
           <tr>
             <th className={task1Styles.tg}>Level</th>

@@ -109,9 +109,10 @@ export default function Task2() {
         yLabel={"Pressure (Pa)"}
       />
 
-      <h2 style={{textAlign: "center"}}>Method</h2>
+      <h2 style={{ textAlign: "center" }}>Method</h2>
       <p>
-        L ≠ 0:<br />
+        L ≠ 0:
+        <br />
         <MathComponent
           tex={String.raw`P = P_0\Biggl(1-\frac{L(h-h_0)}{T_0}\Biggr)^{\frac{Mg}{LR}}`}
         />

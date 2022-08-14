@@ -9,11 +9,12 @@ const Home = lazy(() => import("./Home/Home.js"));
 const Task1 = lazy(() => import("./Task1/Task1.js"));
 const Task2 = lazy(() => import("./Task2/Task2.js"));
 const Task3 = lazy(() => import("./Task3/Task3.js"));
-const Extension = lazy(() => import("./Extension/Extension.js"));
+const ThreeD = lazy(() => import("./3D/Extension.js"));
+const Planets = lazy(() => import("./Planets/Extension.js"));
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Navbar />
       <div
         style={{
@@ -24,53 +25,54 @@ function App() {
           alignItems: "center",
         }}
       >
-          <Suspense
-            fallback={
-              <div className={appStyles.loadingDiv}>
-                <h1>Loading...</h1>
-                <img src={atmosphere} alt="logo" className={appStyles.appLogo} />
-              </div>
-            }
-          >
-            <Routes>
-              <Route path="/" exact element={<Home />} />
-              <Route path="/task1" element={<Task1 />} />
-              <Route path="/task2" element={<Task2 />} />
-              <Route path="/task3" element={<Task3 />} />
-              <Route path="/extension" element={<Extension />} />
-              <Route
-                path="*"
-                element={
+        <Suspense
+          fallback={
+            <div className={appStyles.loadingDiv}>
+              <h1>Loading...</h1>
+              <img src={atmosphere} alt="logo" className={appStyles.appLogo} />
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/task1" element={<Task1 />} />
+            <Route path="/task2" element={<Task2 />} />
+            <Route path="/task3" element={<Task3 />} />
+            <Route path="/3d" element={<ThreeD />} />
+            <Route path="/Planets" element={<Planets />} />
+            <Route
+              path="*"
+              element={
+                <div
+                  style={{
+                    width: "100vw",
+                    display: "flex",
+                    flexFlow: "column nowrap",
+                    alignItems: "center",
+                  }}
+                >
                   <div
                     style={{
-                      width: "100vw",
                       display: "flex",
                       flexFlow: "column nowrap",
+                      justifyContent: "space-around",
                       alignItems: "center",
+                      maxWidth: "min(90vw, 500px)",
+                      marginTop: 100,
                     }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexFlow: "column nowrap",
-                        justifyContent: "space-around",
-                        alignItems: "center",
-                        maxWidth: "min(90vw, 500px)",
-                        marginTop: 100,
-                      }}
-                    >
-                      <h1>Error 404: Page not found</h1>
-                      <p>
-                        The requested resource was not found. You might have
-                        typed in the URL incorrectly, or the page you are
-                        looking for no longer exists.
-                      </p>
-                    </div>
+                    <h1>Error 404: Page not found</h1>
+                    <p>
+                      The requested resource was not found. You might have typed
+                      in the URL incorrectly, or the page you are looking for no
+                      longer exists.
+                    </p>
                   </div>
-                }
-              />
-            </Routes>
-          </Suspense>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
       </div>
     </BrowserRouter>
   );

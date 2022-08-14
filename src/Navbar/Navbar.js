@@ -22,8 +22,11 @@ export default function Navbar() {
         <Link to="/task3">
           <span>Task 3</span>
         </Link>
-        <Link to="/extension">
-          <span>Extension</span>
+        <Link to="/3d">
+          <span>3D</span>
+        </Link>
+        <Link to="/planets">
+          <span>Planets</span>
         </Link>
       </div>
     </nav>
